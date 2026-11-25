@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QADAM AI — Discover Your Future</title>
+
+<style>
+:root {
+    --bg: #f5f6fa;
+    --white: #ffffff;
+    --dark: #17233f;
+    --muted: #718096;
+    --purple: #6956d9;
+    --purple-light: #eeeaff;
+    --blue: #eaf2ff;
+    --border: #e5e8f0;
+    --green: #dff6eb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+button, input, textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+
+.app {
+    max-width: 1050px;
+    margin: auto;
+    padding: 24px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 45px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--purple);
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--dark);
+}
+
+.header-tag {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.hero {
+    background: linear-gradient(135deg, #211b52, #6655d9);
+    color: white;
+    border-radius: 28px;
+    padding: 65px 55px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 50%;
+    right: -70px;
+    top: -80px;
+    box-shadow: 0 0 0 35px rgba(255,255,255,.04),
+                0 0 0 75px rgba(255,255,255,.03);
+}
+
+.eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #c9c1ff;
+    font-weight: bold;
+    margin-bottom: 17px;
+}
+
+.hero h1 {
+    font-size: clamp(35px, 6vw, 58px);
+    line-height: 1.12;
+    max-width: 650px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    color: #e0dcff;
+    max-width: 570px;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.primary-btn {
+    background: var(--purple);
+    color: white;
+    padding: 14px 25px;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    background: #5140bf;
+    transform: translateY(-2px);
+}
+
+.hero .primary-btn {
+    background: white;
+    color: #34266f;
+}
+
+.hero .primary-btn:hover {
+    background: #eeeaff;
+}
+
+.secondary-btn {
+    background: var(--purple-light);
+    color: var(--purple);
+    padding: 13px 22px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.outline-btn {
+    background: white;
+    color: var(--dark);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.feature-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 27px;
+}
+
+.feature-icon {
+    font-size: 30px;
+    margin-bottom: 13px;
+}
+
+.feature-card h3 {
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.section-heading {
+    margin-bottom: 25px;
+}
+
+.section-heading h1 {
+    font-size: 32px;
+    margin-bottom: 7px;
+}
+
+.section-heading p {
+    color: var(--muted);
+}
+
+.progress-wrap {
+    background: #e5e7ef;
+    height: 8px;
+    border-radius: 10px;
+    margin: 20px 0 30px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: var(--purple);
+    width: 0%;
+    transition: .3s;
+}
+
+.question-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 35px;
+}
+
+.question-number {
+    color: var(--purple);
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.question-card h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.options {
+    display: grid;
+    gap: 12px;
+}
+
+.option {
+    background: #fafaff;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 16px;
+    text-align: left;
+    color: var(--dark);
+    transition: .2s;
+}
+
+.option:hover {
+    border-color: var(--purple);
+    background: var(--purple-light);
+}
+
+.option.selected {
+    border: 2px solid var(--purple);
+    background: var(--purple-light);
+    font-weight: bold;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.navigation button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.result-intro {
+    background: linear-gradient(135deg, #211b52, #6655d9);
+    color: white;
+    border-radius: 24px;
+    padding: 35px;
+    margin-bottom: 25px;
+}
+
+.result-intro h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.result-intro p {
+    color: #e0dcff;
+}
+
+.result-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 25px;
+    margin-bottom: 15px;
+}
+
+.result-card.top {
+    border: 2px solid var(--purple);
+}
+
+.rank {
+    color: var(--purple);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.result-card h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.result-card p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.score-line {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 17px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.score-bar {
+    height: 8px;
+    background: #ececf3;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 7px;
+}
+
+.score-fill {
+    height: 100%;
+    background: var(--purple);
+    border-radius: 10px;
+}
+
+.result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.explore-intro {
+    background: linear-gradient(135deg, #211b52, #6655d9);
+    color: white;
+    border-radius: 23px;
+    padding: 35px;
+    margin-bottom: 25px;
+}
+
+.explore-intro h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.explore-intro p {
+    color: #e0dcff;
+    max-width: 650px;
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+}
+
+.field-option {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 19px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.field-option:has(input:checked) {
+    border: 2px solid var(--purple);
+    background: var(--purple-light);
+}
+
+.field-option input {
+    margin-top: 5px;
+    accent-color: var(--purple);
+}
+
+.field-option strong {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.field-option small {
+    color: var(--muted);
+}
+
+.challenge-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 30px;
+}
+
+.challenge-label {
+    color: var(--purple);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.challenge-card h2 {
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+
+.challenge-description {
+    color: var(--muted);
+    margin-bottom: 22px;
+}
+
+.challenge-task {
+    background: var(--blue);
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.challenge-card textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+}
+
+.challenge-card textarea:focus {
+    border-color: var(--purple);
+}
+
+.rating-title {
+    font-weight: bold;
+    margin: 22px 0 10px;
+}
+
+.rating-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.rating-options button {
+    background: #f1f0f8;
+    border: 1px solid var(--border);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.rating-options button.selected {
+    background: var(--purple-light);
+    border: 2px solid var(--purple);
+    color: var(--purple);
+    font-weight: bold;
+}
+
+.summary-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 27px;
+    margin-bottom: 15px;
+}
+
+.summary-card h2 {
+    margin-bottom: 12px;
+}
+
+.summary-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-item strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.summary-item p {
+    color: var(--muted);
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 35px 0 15px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 650px) {
+    .app {
+        padding: 15px;
+    }
+
+    header {
+        margin-bottom: 25px;
+    }
+
+    .hero {
+        padding: 40px 25px;
+    }
+
+    .home-grid,
+    .field-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .question-card {
+        padding: 23px;
+    }
+
+    .section-heading h1 {
+        font-size: 27px;
+    }
+
+    .result-intro,
+    .explore-intro {
+        padding: 27px;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+    }
+
+    header, footer, .no-print {
+        display: none !important;
+    }
+
+    .app {
+        max-width: 100%;
+    }
+
+    .screen {
+        display: none !important;
+    }
+
+    #resultsScreen.active,
+    #summaryScreen.active {
+        display: block !important;
+    }
+
+    .result-card,
+    .summary-card {
+        break-inside: avoid;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <div class="logo">QADAM<span> AI</span></div>
+    <div class="header-tag">Discover. Explore. Choose.</div>
+</header>
+
+<!-- HOME SCREEN -->
+
+<section id="homeScreen" class="screen active">
+
+    <div class="hero">
+        <div class="eyebrow">Your future starts with one step</div>
+        <h1>Discover what you are capable of.</h1>
+        <p>
+            Not sure what career to choose? Explore your interests,
+            discover new possibilities and take your first step toward
+            understanding your future.
+        </p>
+        <button class="primary-btn" onclick="startTest()">
+            Start your journey →
+        </button>
+    </div>
+
+    <div class="home-grid">
+
+        <div class="feature-card">
+            <div class="feature-icon">01</div>
+            <h3>Discover your interests</h3>
+            <p>
+                Answer 15 questions and discover the career directions
+                that match your interests.
+            </p>
+            <button class="secondary-btn" onclick="startTest()">
+                Take the test
+            </button>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">02</div>
+            <h3>Explore different careers</h3>
+            <p>
+                Try practical mini-challenges from different fields.
+                You do not need to know what you want yet.
+            </p>
+            <button class="secondary-btn" onclick="startExplore()">
+                Explore careers
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TEST SCREEN -->
+
+<section id="testScreen" class="screen">
+
+    <div class="section-heading">
+        <h1>Discover your interests</h1>
+        <p>Choose the answer that feels most natural to you.</p>
+    </div>
+
+    <div class="progress-wrap">
+        <div id="testProgress" class="progress"></div>
+    </div>
+
+    <div class="question-card">
+        <div id="questionNumber" class="question-number"></div>
+        <h2 id="questionText"></h2>
+        <div id="answerOptions" class="options"></div>
+    </div>
+
+    <div class="navigation">
+        <button class="outline-btn" onclick="previousQuestion()">
+            ← Back
+        </button>
+
+        <button id="nextQuestionBtn" class="primary-btn"
+                onclick="nextQuestion()" disabled>
+            Next →
+        </button>
+    </div>
+
+</section>
+
+
+<!-- RESULTS SCREEN -->
+
+<section id="resultsScreen" class="screen">
+
+    <div class="result-intro">
+        <div class="eyebrow">Your personal discovery report</div>
+        <h1>Your next step starts here.</h1>
+        <p>
+            Based on your answers, here are your three strongest
+            career directions.
+        </p>
+    </div>
+
+    <div id="resultsContainer"></div>
+
+    <div class="result-actions no-print">
+        <button class="primary-btn" onclick="startExplore()">
+            Explore different careers →
+        </button>
+
+        <button class="secondary-btn" onclick="window.print()">
+            Print report
+        </button>
+
+        <button class="outline-btn" onclick="retakeTest()">
+            Retake test
+        </button>
+
+        <button class="outline-btn" onclick="goHome()">
+            Home
+        </button>
+    </div>
+
+</section>
+
+
+<!-- EXPLORE SELECTION SCREEN -->
+
+<section id="exploreScreen" class="screen">
+
+    <div class="explore-intro">
+        <div class="eyebrow">Explore mode</div>
+        <h1>Try different possibilities.</h1>
+        <p>
+            You do not have to choose one career right now.
+            Select the fields you want to explore and try a short
+            practical activity in each one.
+        </p>
+    </div>
+
+    <div class="section-heading">
+        <h1>What would you like to try?</h1>
+        <p>You can select more than one field.</p>
+    </div>
+
+    <div id="fieldGrid" class="field-grid"></div>
+
+    <button class="primary-btn" onclick="beginChallenges()">
+        Start exploring →
+    </button>
+
+    <button class="outline-btn" onclick="goHome()">
+        Home
+    </button>
+
+</section>
+
+
+<!-- CHALLENGE SCREEN -->
+
+<section id="challengeScreen" class="screen">
+
+    <div class="section-heading">
+        <h1>Your practical experience</h1>
+        <p id="challengeCounter"></p>
+    </div>
+
+    <div class="progress-wrap">
+        <div id="challengeProgress" class="progress"></div>
+    </div>
+
+    <div class="challenge-card">
+
+        <div id="challengeCategory" class="challenge-label"></div>
+
+        <h2 id="challengeTitle"></h2>
+
+        <p id="challengeDescription" class="challenge-description"></p>
+
+        <div class="challenge-task">
+            <strong>Your task:</strong>
+            <p id="challengeTask"></p>
+        </div>
+
+        <label for="challengeAnswer"><strong>Your response:</strong></label>
+
+        <textarea id="challengeAnswer"
+            placeholder="Write your ideas here..."></textarea>
+
+        <div class="rating-title">
+            How did you feel about this activity?
+        </div>
+
+        <div class="rating-options">
+            <button onclick="selectRating(1)">Not for me</button>
+            <button onclick="selectRating(2)">It was okay</button>
+            <button onclick="selectRating(3)">Interesting</button>
+            <button onclick="selectRating(4)">I loved it</button>
+        </div>
+
+        <div class="navigation">
+            <button class="outline-btn" onclick="skipChallenge()">
+                Skip
+            </button>
+
+            <button id="challengeNextBtn" class="primary-btn"
+                    onclick="saveChallenge()">
+                Save and continue →
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EXPLORE SUMMARY -->
+
+<section id="summaryScreen" class="screen">
+
+    <div class="result-intro">
+        <div class="eyebrow">Your exploration report</div>
+        <h1>You tried something new.</h1>
+        <p>
+            Every experience can help you understand what interests
+            you and what kind of activities you enjoy.
+        </p>
+    </div>
+
+    <div class="summary-card">
+        <h2>Your exploration results</h2>
+        <div id="summaryContent"></div>
+    </div>
+
+    <div class="summary-card">
+        <h2>What comes next?</h2>
+        <p>
+            Think about which activities made you curious,
+            which ones felt natural and which ones you would like
+            to explore further.
+        </p>
+    </div>
+
+    <div class="result-actions no-print">
+        <button class="primary-btn" onclick="startExplore()">
+            Explore more fields
+        </button>
+
+        <button class="secondary-btn" onclick="window.print()">
+            Print report
+        </button>
+
+        <button class="outline-btn" onclick="goHome()">
+            Home
+        </button>
+    </div>
+
+</section>
+
+
+<footer>
+    QADAM AI — Discover your potential, one step at a time.
+</footer>
+
+</div>
+
+
+<script>
+
+/* --------------------------------
+   CAREER DIRECTIONS
+-------------------------------- */
+
+const careers = {
+    language: {
+        name: "Language & Communication",
+        description:
+            "You may enjoy languages, communication, writing, translation and connecting with people from different cultures.",
+        careers: "Translator, language teacher, journalist, interpreter, communication specialist."
+    },
+
+    business: {
+        name: "Business & Management",
+        description:
+            "You may enjoy organizing ideas, making decisions, planning projects and understanding how organizations work.",
+        careers: "Entrepreneur, manager, project coordinator, marketing specialist, business analyst."
+    },
+
+    science: {
+        name: "Science & Research",
+        description:
+            "You may enjoy asking questions, investigating how things work and finding explanations through research.",
+        careers: "Researcher, biologist, laboratory specialist, environmental scientist, analyst."
+    },
+
+    technology: {
+        name: "Technology & IT",
+        description:
+            "You may enjoy solving logical problems, understanding digital systems and creating technological solutions.",
+        careers: "Software developer, data analyst, UX designer, cybersecurity specialist."
+    },
+
+    creative: {
+        name: "Creative Arts & Design",
+        description:
+            "You may enjoy expressing ideas, creating visual content, designing and finding original solutions.",
+        careers: "Graphic designer, writer, content creator, illustrator, architect."
+    },
+
+    social: {
+        name: "Social Sciences & Helping",
+        description:
+            "You may enjoy understanding people, society, education and finding ways to support communities.",
+        careers: "Teacher, sociologist, educator, social researcher, public relations specialist."
+    }
+};
+
+
+/* --------------------------------
+   TEST QUESTIONS
+-------------------------------- */
+
+const questions = [
+
+    {
+        question: "Which activity sounds most interesting to you?",
+        options: [
+            ["Learning a new language", "language"],
+            ["Planning a business idea", "business"],
+            ["Discovering how nature works", "science"],
+            ["Creating an application", "technology"]
+        ]
+    },
+
+    {
+        question: "What would you rather do during a free project?",
+        options: [
+            ["Write an article or a story", "language"],
+            ["Organize a team", "business"],
+            ["Conduct an experiment", "science"],
+            ["Design something original", "creative"]
+        ]
+    },
+
+    {
+        question: "Which subject attracts your attention most?",
+        options: [
+            ["Foreign languages", "language"],
+            ["Economics", "business"],
+            ["Biology", "science"],
+            ["Computer science", "technology"]
+        ]
+    },
+
+    {
+        question: "What would you enjoy solving?",
+        options: [
+            ["A communication problem", "language"],
+            ["A business challenge", "business"],
+            ["A scientific question", "science"],
+            ["A technical problem", "technology"]
+        ]
+    },
+
+    {
+        question: "Which result would make you happiest?",
+        options: [
+            ["Helping people understand each other", "language"],
+            ["Successfully managing a project", "business"],
+            ["Discovering something new", "science"],
+            ["Creating a useful design", "creative"]
+        ]
+    },
+
+    {
+        question: "What role would you choose in a group?",
+        options: [
+            ["The person who explains ideas", "language"],
+            ["The team leader", "business"],
+            ["The researcher", "science"],
+            ["The person who creates solutions", "technology"]
+        ]
+    },
+
+    {
+        question: "Which activity would you try first?",
+        options: [
+            ["Translating a short text", "language"],
+            ["Developing a business plan", "business"],
+            ["Studying an interesting phenomenon", "science"],
+            ["Designing a website", "technology"]
+        ]
+    },
+
+    {
+        question: "What inspires you most?",
+        options: [
+            ["Different cultures and languages", "language"],
+            ["New opportunities and ideas", "business"],
+            ["The natural world", "science"],
+            ["Art and imagination", "creative"]
+        ]
+    },
+
+    {
+        question: "Which task would you prefer?",
+        options: [
+            ["Preparing a presentation", "language"],
+            ["Managing a project budget", "business"],
+            ["Analyzing research results", "science"],
+            ["Helping someone solve a personal problem", "social"]
+        ]
+    },
+
+    {
+        question: "What would you like to improve?",
+        options: [
+            ["Speaking and writing skills", "language"],
+            ["Leadership and decision-making", "business"],
+            ["Research and analytical skills", "science"],
+            ["Digital and technical skills", "technology"]
+        ]
+    },
+
+    {
+        question: "Which environment sounds appealing?",
+        options: [
+            ["An international organization", "language"],
+            ["A company or startup", "business"],
+            ["A research center", "science"],
+            ["A creative studio", "creative"]
+        ]
+    },
+
+    {
+        question: "What kind of problem interests you?",
+        options: [
+            ["How to communicate an idea clearly", "language"],
+            ["How to improve a project", "business"],
+            ["Why something happens in nature", "science"],
+            ["How to make technology work better", "technology"]
+        ]
+    },
+
+    {
+        question: "What would you like to contribute to society?",
+        options: [
+            ["Help people communicate", "language"],
+            ["Create useful services", "business"],
+            ["Make scientific discoveries", "science"],
+            ["Support people and communities", "social"]
+        ]
+    },
+
+    {
+        question: "Which skill would you most like to develop?",
+        options: [
+            ["Writing and translation", "language"],
+            ["Organization and leadership", "business"],
+            ["Critical thinking and research", "science"],
+            ["Creativity and visual design", "creative"]
+        ]
+    },
+
+    {
+        question: "Imagine your future workday. What sounds best?",
+        options: [
+            ["Working with languages and people", "language"],
+            ["Making decisions and leading projects", "business"],
+            ["Investigating and analyzing information", "science"],
+            ["Creating digital or visual solutions", "technology"]
+        ]
+    }
+
+];
+
+let currentQuestion = 0;
+let answers = new Array(questions.length).fill(null);
+let scores = {};
+
+function resetScores() {
+    Object.keys(careers).forEach(key => {
+        scores[key] = 0;
+    });
+}
+
+
+/* --------------------------------
+   SCREEN NAVIGATION
+-------------------------------- */
+
+function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function goHome() {
+    showScreen("homeScreen");
+}
+
+
+/* --------------------------------
+   TEST LOGIC
+-------------------------------- */
+
+function startTest() {
+    currentQuestion = 0;
+    answers = new Array(questions.length).fill(null);
+    renderQuestion();
+    showScreen("testScreen");
+}
+
+function renderQuestion() {
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber").textContent =
+        "QUESTION " + (currentQuestion + 1) + " OF " + questions.length;
+
+    document.getElementById("questionText").textContent = q.question;
+
+    document.getElementById("testProgress").style.width =
+        ((currentQuestion + 1) / questions.length * 100) + "%";
+
+    const container = document.getElementById("answerOptions");
+    container.innerHTML = "";
+
+    q.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = "option";
+
+        if (answers[currentQuestion] === index) {
+            button.classList.add("selected");
+        }
+
+        button.textContent = option[0];
+
+        button.onclick = () => {
+            answers[currentQuestion] = index;
+            renderQuestion();
+        };
+
+        container.appendChild(button);
+    });
+
+    document.getElementById("nextQuestionBtn").disabled =
+        answers[currentQuestion] === null;
+
+    document.getElementById("nextQuestionBtn").textContent =
+        currentQuestion === questions.length - 1
+            ? "See my results →"
+            : "Next →";
+}
+
+function previousQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+    }
+}
+
+function nextQuestion() {
+    if (answers[currentQuestion] === null) return;
+
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+    } else {
+        calculateResults();
+    }
+}
+
+function calculateResults() {
+    resetScores();
+
+    questions.forEach((question, index) => {
+        const selected = answers[index];
+
+        if (selected !== null) {
+            const category = question.options[selected][1];
+            scores[category]++;
+        }
+    });
+
+    const sorted = Object.keys(scores).sort((a, b) =>
+        scores[b] - scores[a]
+    );
+
+    const topThree = sorted.slice(0, 3);
+
+    const maxScore = Math.max(...Object.values(scores), 1);
+
+    const container = document.getElementById("resultsContainer");
+    container.innerHTML = "";
+
+    topThree.forEach((key, index) => {
+        const career = careers[key];
+        const score = scores[key];
+        const percentage = Math.round(score / maxScore * 100);
+
+        const card = document.createElement("div");
+
+        card.className = "result-card" + (index === 0 ? " top" : "");
+
+        card.innerHTML = `
+            <div class="rank">TOP ${index + 1} CAREER DIRECTION</div>
+            <h2>${career.name}</h2>
+            <p>${career.description}</p>
+            <p style="margin-top:12px">
+                <strong>Possible careers:</strong> ${career.careers}
+            </p>
+            <div class="score-line">
+                <span>Interest score</span>
+                <span>${score} / ${maxScore}</span>
+            </div>
+            <div class="score-bar">
+                <div class="score-fill" style="width:${percentage}%"></div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    showScreen("resultsScreen");
+}
+
+function retakeTest() {
+    startTest();
+}
+
+
+/* --------------------------------
+   EXPLORE MODE
+-------------------------------- */
+
+const exploreFields = [
+    {
+        id: "language",
+        name: "Language & Communication",
+        description: "Languages, writing and communication."
+    },
+    {
+        id: "business",
+        name: "Business & Management",
+        description: "Planning, leadership and entrepreneurship."
+    },
+    {
+        id: "science",
+        name: "Science & Research",
+        description: "Investigation, experiments and analysis."
+    },
+    {
+        id: "technology",
+        name: "Technology & IT",
+        description: "Digital tools and problem-solving."
+    },
+    {
+        id: "creative",
+        name: "Creative Arts & Design",
+        description: "Creativity, design and original ideas."
+    },
+    {
+        id: "social",
+        name: "Social Sciences & Helping",
+        description: "People, education and society."
+    }
+];
+
+const challenges = {
+
+    language: {
+        title: "The Communication Challenge",
+        description:
+            "Imagine you are helping an international student understand a new culture.",
+        task:
+            "Write a short welcome message for a student visiting your country for the first time. Explain one cultural tradition or place they should discover."
+    },
+
+    business: {
+        title: "The Startup Challenge",
+        description:
+            "Imagine you have an idea for a small project that could help students.",
+        task:
+            "Invent a simple service or product for students. Describe the problem it solves, who would use it and how you would introduce it."
+    },
+
+    science: {
+        title: "The Research Challenge",
+        description:
+            "Imagine you are a researcher trying to understand a question about the world.",
+        task:
+            "Choose a question about nature, biology or everyday life. Write what you would investigate and what information you would need to find an answer."
+    },
+
+    technology: {
+        title: "The Technology Challenge",
+        description:
+            "Imagine you are designing a digital tool for students.",
+        task:
+            "Describe an application that could make students' lives easier. What problem does it solve? What three functions should it have?"
+    },
+
+    creative: {
+        title: "The Creative Challenge",
+        description:
+            "Imagine you are creating a visual identity for a new project.",
+        task:
+            "Invent a name and concept for a project that inspires young people. Describe its logo, colors and the message you want it to communicate."
+    },
+
+    social: {
+        title: "The Social Impact Challenge",
+        description:
+            "Imagine you want to improve something in your school or community.",
+        task:
+            "Identify one problem students or people in your community face. Suggest a realistic solution and explain how it could help."
+    }
+
+};
+
+let selectedFields = [];
+let challengeIndex = 0;
+let explorationResults = [];
+let currentRating = 0;
+
+function startExplore() {
+    const grid = document.getElementById("fieldGrid");
+    grid.innerHTML = "";
+
+    exploreFields.forEach(field => {
+        const label = document.createElement("label");
+        label.className = "field-option";
+
+        label.innerHTML = `
+            <input type="checkbox" value="${field.id}">
+            <span>
+                <strong>${field.name}</strong>
+                <small>${field.description}</small>
+            </span>
+        `;
+
+        grid.appendChild(label);
+    });
+
+    showScreen("exploreScreen");
+}
+
+function beginChallenges() {
+    const checked = document.querySelectorAll(
+        "#fieldGrid input:checked"
+    );
+
+    selectedFields = Array.from(checked).map(input => input.value);
+
+    if (selectedFields.length === 0) {
+        alert("Please select at least one field to explore.");
+        return;
+    }
+
+    challengeIndex = 0;
+    explorationResults = [];
+
+    renderChallenge();
+    showScreen("challengeScreen");
+}
+
+function renderChallenge() {
+    const fieldId = selectedFields[challengeIndex];
+    const field = careers[fieldId];
+    const challenge = challenges[fieldId];
+
+    currentRating = 0;
+
+    document.getElementById("challengeCounter").textContent =
+        "Challenge " + (challengeIndex + 1) +
+        " of " + selectedFields.length;
+
+    document.getElementById("challengeProgress").style.width =
+        ((challengeIndex + 1) / selectedFields.length * 100) + "%";
+
+    document.getElementById("challengeCategory").textContent =
+        field.name;
+
+    document.getElementById("challengeTitle").textContent =
+        challenge.title;
+
+    document.getElementById("challengeDescription").textContent =
+        challenge.description;
+
+    document.getElementById("challengeTask").textContent =
+        challenge.task;
+
+    document.getElementById("challengeAnswer").value = "";
+
+    document.querySelectorAll(".rating-options button").forEach(button => {
+        button.classList.remove("selected");
+    });
+
+    document.getElementById("challengeNextBtn").textContent =
+        challengeIndex === selectedFields.length - 1
+            ? "Finish exploration →"
+            : "Save and continue →";
+}
+
+function selectRating(value) {
+    currentRating = value;
+
+    document.querySelectorAll(".rating-options button").forEach(
+        (button, index) => {
+            button.classList.toggle("selected", index + 1 === value);
+        }
+    );
+}
+
+function saveChallenge() {
+    const fieldId = selectedFields[challengeIndex];
+
+    const answer = document.getElementById("challengeAnswer").value.trim();
+
+    if (!answer && currentRating === 0) {
+        alert("Please write a response or select how you felt about the activity.");
+        return;
+    }
+
+    explorationResults.push({
+        field: careers[fieldId].name,
+        answer: answer || "No written response.",
+        rating: currentRating
+    });
+
+    continueChallenge();
+}
+
+function skipChallenge() {
+    const fieldId = selectedFields[challengeIndex];
+
+    explorationResults.push({
+        field: careers[fieldId].name,
+        answer: "Skipped.",
+        rating: 0
+    });
+
+    continueChallenge();
+}
+
+function continueChallenge() {
+    if (challengeIndex < selectedFields.length - 1) {
+        challengeIndex++;
+        renderChallenge();
+    } else {
+        showExploreSummary();
+    }
+}
+
+
+/* --------------------------------
+   EXPLORE SUMMARY
+-------------------------------- */
+
+function showExploreSummary() {
+    const container = document.getElementById("summaryContent");
+    container.innerHTML = "";
+
+    let completed = 0;
+    let totalRating = 0;
+    let ratedCount = 0;
+
+    explorationResults.forEach(result => {
+        if (result.answer !== "Skipped.") completed++;
+
+        if (result.rating > 0) {
+            totalRating += result.rating;
+            ratedCount++;
+        }
+
+        const item = document.createElement("div");
+        item.className = "summary-item";
+
+        const title = document.createElement("strong");
+        title.textContent = result.field;
+
+        const answer = document.createElement("p");
+        answer.textContent = result.answer;
+
+        const rating = document.createElement("p");
+
+        const ratingLabels = {
+            0: "No rating",
+            1: "Not for me",
+            2: "It was okay",
+            3: "Interesting",
+            4: "I loved it"
+        };
+
+        rating.textContent = "Your feedback: " + ratingLabels[result.rating];
+
+        item.appendChild(title);
+        item.appendChild(answer);
+        item.appendChild(rating);
+
+        container.appendChild(item);
+    });
+
+    const stats = document.createElement("div");
+    stats.style.marginBottom = "20px";
+
+    stats.innerHTML = `
+        <p><strong>Fields selected:</strong> ${selectedFields.length}</p>
+        <p><strong>Activities completed:</strong> ${completed}</p>
+    `;
+
+    if (ratedCount > 0) {
+        const average = (totalRating / ratedCount).toFixed(1);
+
+        const averageText = document.createElement("p");
+        averageText.innerHTML =
+            "<strong>Average interest rating:</strong> " + average + " / 4";
+
+        stats.appendChild(averageText);
+    }
+
+    container.prepend(stats);
+
+    showScreen("summaryScreen");
+}
+
+
+/* --------------------------------
+   INITIALIZATION
+-------------------------------- */
+
+showScreen("homeScreen");
+
+</script>
+
+</body>
+</html>
